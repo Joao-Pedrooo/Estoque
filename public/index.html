@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>Arq Estoque - Dashboard</title>
-    <!-- Bootstrap CSS -->
+    <!-- Importa Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
-    <!-- Firebase SDKs -->
+    <!-- Link para o seu arquivo de estilos customizados -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- Firebase SDKs (versões compatíveis) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
@@ -16,7 +18,7 @@
   <body>
     <!-- Menu Superior com Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="dashboard.html">Arq Estoque</a>
+      <a class="navbar-brand" href="index.html">Arq Estoque</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -30,10 +32,9 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarContent">
-        <!-- Itens à esquerda -->
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="dashboard.html">Dashboard</a>
+            <a class="nav-link" href="index.html">Dashboard</a>
           </li>
           <!-- Dropdown Cadastro -->
           <li class="nav-item dropdown">
@@ -49,13 +50,18 @@
               Cadastro
             </a>
             <div class="dropdown-menu" aria-labelledby="cadastroDropdown">
-              <a class="dropdown-item" href="produtos.html">Produtos</a>
-              <a class="dropdown-item" href="estoques.html">Estoques</a>
-              <a class="dropdown-item" href="setores.html">Setores/Clientes</a>
-              <a class="dropdown-item" href="grupos.html">Grupos de Produtos</a>
-              <a class="dropdown-item" href="unidades.html">Unidades</a>
-              <a class="dropdown-item" href="fornecedores.html">Fornecedores</a>
-              <a class="dropdown-item" href="contratos.html">Contratos</a>
+              <a class="dropdown-item" href="cadastro_usuario.html"
+                >Cadastro de Usuário</a
+              >
+              <a class="dropdown-item" href="cadastro_produto.html"
+                >Cadastro de Produto</a
+              >
+              <a class="dropdown-item" href="cadastro_unidade.html"
+                >Cadastro de Unidade</a
+              >
+              <a class="dropdown-item" href="cadastro_setor.html"
+                >Cadastro de Setor/Cliente</a
+              >
             </div>
           </li>
           <!-- Dropdown Gerenciamento -->
@@ -78,7 +84,7 @@
               <a class="dropdown-item" href="movimentacoes.html"
                 >Movimentações de Estoque</a
               >
-              <a class="dropdown-item" href="solicitacoes.html"
+              <a class="dropdown-item" href="solicitacao.html"
                 >Solicitações de Pedido</a
               >
             </div>
@@ -86,12 +92,11 @@
           <li class="nav-item">
             <a class="nav-link" href="usuarios.html">Usuários</a>
           </li>
-          <!-- Link Administrativo (aparece somente para administradores) -->
+          <!-- Link Administrativo, visível somente para administradores -->
           <li class="nav-item" id="adminLink" style="display: none">
             <a class="nav-link" href="admin.html">Administração</a>
           </li>
         </ul>
-        <!-- Itens à direita (por exemplo, Sair) -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="logout.html">Sair</a>
@@ -108,101 +113,12 @@
       </div>
     </div>
 
-    <!-- Importa jQuery e Bootstrap JS (necessário para os componentes do Bootstrap) -->
+    <!-- Importa jQuery e Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "firebase/app";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
-      // Your web app's Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyChvk0KwHe0G72Enn5OiZ-GQwx_KD3N_TU",
-        authDomain: "estoque-v1.firebaseapp.com",
-        projectId: "estoque-v1",
-        storageBucket: "estoque-v1.firebasestorage.app",
-        messagingSenderId: "1073871250272",
-        appId: "1:1073871250272:web:cd51f47f32068f1640f405",
-      };
-
-      // Inicializa o Firebase
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
-      const db = firebase.firestore();
-
-      // Ativa a persistência offline para reduzir requisições
-      db.enablePersistence().catch((err) => {
-        if (err.code === "failed-precondition") {
-          console.warn(
-            "Persistência offline não pode ser ativada: múltiplas abas abertas."
-          );
-        } else if (err.code === "unimplemented") {
-          console.warn("Persistência offline não é suportada neste navegador.");
-        }
-      });
-
-      // Função para buscar e renderizar produtos
-      function fetchProdutos() {
-        db.collection("produtos")
-          .get()
-          .then((querySnapshot) => {
-            const produtosList = document.getElementById("produtos-list");
-            querySnapshot.forEach((doc) => {
-              const produto = doc.data();
-              const card = document.createElement("div");
-              card.classList.add("col-md-4", "mb-4");
-              card.innerHTML = `
-            <div class="card">
-              <img src="${produto.foto}" class="card-img-top" alt="${produto.nome}">
-              <div class="card-body">
-                <h5 class="card-title">${produto.nome}</h5>
-                <p class="card-text">
-                  Estoque Atual: ${produto.estoque_atual}<br>
-                  Unidade: ${produto.unidade}<br>
-                  Estoque Padrão: ${produto.estoque_padrao}
-                </p>
-              </div>
-            </div>
-          `;
-              produtosList.appendChild(card);
-            });
-          })
-          .catch((error) => {
-            console.error("Erro ao buscar produtos:", error);
-          });
-      }
-
-      // Função para verificar se o usuário é administrador
-      function verificarAdmin(user) {
-        db.collection("users")
-          .doc(user.uid)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              const userData = doc.data();
-              if (userData.is_admin === true) {
-                document.getElementById("adminLink").style.display = "block";
-              }
-            }
-          })
-          .catch((error) => {
-            console.error("Erro ao verificar admin:", error);
-          });
-      }
-
-      // Monitoramento do estado de autenticação
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          verificarAdmin(user);
-          fetchProdutos();
-        } else {
-          window.location.href = "login.html";
-        }
-      });
-    </script>
+    <!-- Importa o arquivo de script separado -->
+    <script src="js/script.js"></script>
   </body>
 </html>
