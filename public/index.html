@@ -1,87 +1,201 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
-
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/11.3.1/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/11.3.1/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/11.3.1/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/11.3.1/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/11.3.1/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/11.3.1/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/11.3.1/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/11.3.1/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/11.3.1/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/11.3.1/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
+    <meta charset="UTF-8" />
+    <title>Arq Estoque - Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    <!-- Menu Superior com Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="dashboard.html">Arq Estoque</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarContent"
+        aria-controls="navbarContent"
+        aria-expanded="false"
+        aria-label="Alternar navegação"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <!-- Itens à esquerda -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="dashboard.html">Dashboard</a>
+          </li>
+          <!-- Dropdown Cadastro -->
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="cadastroDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Cadastro
+            </a>
+            <div class="dropdown-menu" aria-labelledby="cadastroDropdown">
+              <a class="dropdown-item" href="produtos.html">Produtos</a>
+              <a class="dropdown-item" href="estoques.html">Estoques</a>
+              <a class="dropdown-item" href="setores.html">Setores/Clientes</a>
+              <a class="dropdown-item" href="grupos.html">Grupos de Produtos</a>
+              <a class="dropdown-item" href="unidades.html">Unidades</a>
+              <a class="dropdown-item" href="fornecedores.html">Fornecedores</a>
+              <a class="dropdown-item" href="contratos.html">Contratos</a>
+            </div>
+          </li>
+          <!-- Dropdown Gerenciamento -->
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="gerenciamentoDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Gerenciamento
+            </a>
+            <div class="dropdown-menu" aria-labelledby="gerenciamentoDropdown">
+              <a class="dropdown-item" href="entrada.html"
+                >Entrada de Produtos</a
+              >
+              <a class="dropdown-item" href="movimentacoes.html"
+                >Movimentações de Estoque</a
+              >
+              <a class="dropdown-item" href="solicitacoes.html"
+                >Solicitações de Pedido</a
+              >
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="usuarios.html">Usuários</a>
+          </li>
+          <!-- Link Administrativo (aparece somente para administradores) -->
+          <li class="nav-item" id="adminLink" style="display: none">
+            <a class="nav-link" href="admin.html">Administração</a>
+          </li>
+        </ul>
+        <!-- Itens à direita (por exemplo, Sair) -->
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="logout.html">Sair</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container mt-4">
+      <h1>Produtos Cadastrados</h1>
+      <div id="produtos-list" class="row">
+        <!-- Os cards de produtos serão renderizados aqui -->
+      </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+
+    <!-- Importa jQuery e Bootstrap JS (necessário para os componentes do Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+      // Configuração do Firebase (substitua pelos seus dados do projeto)
+      const firebaseConfig = {
+        apiKey: "SUA_API_KEY",
+        authDomain: "seu-projeto.firebaseapp.com",
+        projectId: "seu-projeto",
+        storageBucket: "seu-projeto.appspot.com",
+        messagingSenderId: "SEU_SENDER_ID",
+        appId: "SUA_APP_ID",
+      };
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+      // Inicializa o Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      // Ativa a persistência offline para reduzir requisições
+      db.enablePersistence().catch((err) => {
+        if (err.code === "failed-precondition") {
+          console.warn(
+            "Persistência offline não pode ser ativada: múltiplas abas abertas."
+          );
+        } else if (err.code === "unimplemented") {
+          console.warn("Persistência offline não é suportada neste navegador.");
+        }
+      });
+
+      // Função para buscar e renderizar produtos
+      function fetchProdutos() {
+        db.collection("produtos")
+          .get()
+          .then((querySnapshot) => {
+            const produtosList = document.getElementById("produtos-list");
+            querySnapshot.forEach((doc) => {
+              const produto = doc.data();
+              const card = document.createElement("div");
+              card.classList.add("col-md-4", "mb-4");
+              card.innerHTML = `
+            <div class="card">
+              <img src="${produto.foto}" class="card-img-top" alt="${produto.nome}">
+              <div class="card-body">
+                <h5 class="card-title">${produto.nome}</h5>
+                <p class="card-text">
+                  Estoque Atual: ${produto.estoque_atual}<br>
+                  Unidade: ${produto.unidade}<br>
+                  Estoque Padrão: ${produto.estoque_padrao}
+                </p>
+              </div>
+            </div>
+          `;
+              produtosList.appendChild(card);
+            });
+          })
+          .catch((error) => {
+            console.error("Erro ao buscar produtos:", error);
+          });
+      }
+
+      // Função para verificar se o usuário é administrador
+      function verificarAdmin(user) {
+        db.collection("users")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              const userData = doc.data();
+              if (userData.is_admin === true) {
+                document.getElementById("adminLink").style.display = "block";
+              }
+            }
+          })
+          .catch((error) => {
+            console.error("Erro ao verificar admin:", error);
+          });
+      }
+
+      // Monitoramento do estado de autenticação
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          verificarAdmin(user);
+          fetchProdutos();
+        } else {
+          window.location.href = "login.html";
         }
       });
     </script>
