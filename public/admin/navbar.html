@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar Admin - Arq Estoque</title>
+    <base href="/" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/admin/dashboard.html"
+          >Admin - Arq Estoque</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#adminNavbar"
+          aria-controls="adminNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="adminNavbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- Cadastros -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="cadastrosDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Cadastros
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="cadastrosDropdown">
+                <li>
+                  <a class="dropdown-item" href="/admin/cadastro_unidades.html"
+                    >Unidades Organizacionais</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/admin/cadastro_setores.html"
+                    >Setores/Clientes</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/admin/cadastro_produtos.html"
+                    >Produtos</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/admin/cadastro_usuarios.html"
+                    >Usuários</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/admin/cadastro_grupos.html"
+                    >Grupos</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <!-- Operações -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="operacoesDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Operações
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="operacoesDropdown">
+                <li>
+                  <a class="dropdown-item" href="/admin/estoque.html"
+                    >Gestão de Estoque</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/admin/pedidos.html"
+                    >Pedidos</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <!-- Relatórios -->
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard.html">Dashboard</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/logout.html">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>

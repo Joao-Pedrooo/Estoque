@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Setores/Clientes - Admin</title>
+    <base href="/" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Nav Bar Admin (Carregada dinamicamente) -->
+    <div id="navbar-container"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#navbar-container").load("/admin/navbar.html");
+      });
+    </script>
+
+    <!-- Conteúdo Principal -->
+    <div class="container mt-4">
+      <h2 class="text-center">Cadastro de Setores/Clientes</h2>
+      <div class="card p-3 mb-4">
+        <h4>➕ Adicionar Novo Setor/Cliente</h4>
+        <form id="formCadastroSetor">
+          <div class="mb-3">
+            <label for="setor-cod" class="form-label">Código do Setor</label>
+            <input
+              type="text"
+              class="form-control"
+              id="setor-cod"
+              placeholder="Digite o código"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="setor-nome" class="form-label"
+              >Nome do Setor/Cliente</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="setor-nome"
+              placeholder="Digite o nome"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="setor-contrato" class="form-label">Contrato</label>
+            <input
+              type="text"
+              class="form-control"
+              id="setor-contrato"
+              placeholder="Digite o contrato (se aplicável)"
+            />
+          </div>
+          <button type="submit" class="btn btn-success w-100">
+            Cadastrar Setor/Cliente
+          </button>
+        </form>
+      </div>
+      <h4>Setores/Clientes Cadastrados</h4>
+      <ul id="setor-lista" class="list-group"></ul>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script para setores (como módulo ES6) -->
+    <script type="module" src="/js/firebase_config.js"></script>
+    <script type="module" src="/js/setor.js"></script>
+  </body>
+</html>
